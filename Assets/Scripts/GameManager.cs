@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem; // новый Input System
+using UnityEngine.InputSystem; // Г­Г®ГўГ»Г© Input System
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -12,16 +12,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI moneyPerClickText;
     [SerializeField] private TextMeshProUGUI moneyPerSecondText;
 
-    [SerializeField] private PlayerProfile playerProfile;
-
     [SerializeField] private GraphicRaycaster uiRaycaster;
     [SerializeField] private EventSystem eventSystem;
 
     void Start()
     {
-        playerProfile.SetMoneyPerClick(1);
-        playerProfile.SetMoneyPerSecond(2);
-        playerProfile.SetMoneyPerHour(3);
+        PlayerProfile.Instance.SetMoneyPerClick(1);
+        PlayerProfile.Instance.SetMoneyPerSecond(2);
+        PlayerProfile.Instance.SetMoneyPerHour(3);
     }
 
     void Update()
@@ -39,25 +37,25 @@ public class GameManager : MonoBehaviour
 
     public void OnClick()
     {
-        AddMoneyToBalance(playerProfile.GetMoneyPerClick());
+        AddMoneyToBalance(PlayerProfile.Instance.GetMoneyPerClick());
     }
 
     private void AddMoneyToBalance(double amount)
     {
-        playerProfile.SetBalance(playerProfile.GetBalance() + amount);
+        PlayerProfile.Instance.SetBalance(PlayerProfile.Instance.GetBalance() + amount);
     }
 
     private void AddMoneyPerSecond()
     {
-        double moneyToAdd = playerProfile.GetMoneyPerSecond() * Time.deltaTime;
+        double moneyToAdd = PlayerProfile.Instance.GetMoneyPerSecond() * Time.deltaTime;
         AddMoneyToBalance(moneyToAdd);
     }
 
     private void UpdateUI()
     {
-        balanceText.text = $"Баланс: {playerProfile.GetBalance():F0}";
-        moneyPerClickText.text = $"За клик: {playerProfile.GetMoneyPerClick():F0}";
-        moneyPerSecondText.text = $"В секунду: {playerProfile.GetMoneyPerSecond():F2}";
+        balanceText.text = $"ГЃГ Г«Г Г­Г±: {PlayerProfile.Instance.GetBalance():F0}";
+        moneyPerClickText.text = $"Г‡Г  ГЄГ«ГЁГЄ: {PlayerProfile.Instance.GetMoneyPerClick():F0}";
+        moneyPerSecondText.text = $"Г‚ Г±ГҐГЄГіГ­Г¤Гі: {PlayerProfile.Instance.GetMoneyPerSecond():F2}";
     }
 
     private bool IsPointerOverUI(Vector2 screenPos)

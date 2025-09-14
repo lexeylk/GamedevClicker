@@ -1,7 +1,7 @@
-using UnityEngine;
-
-public class PlayerProfile : MonoBehaviour
+public class PlayerProfile
 {
+    private static PlayerProfile _instance;
+    public static PlayerProfile Instance => _instance ??= new PlayerProfile();
 
     public string playerName;
     private double balance;
